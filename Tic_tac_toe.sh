@@ -5,6 +5,7 @@ echo "*****************Welcome to Tic Tac Toe****************"
 #INITIALIZE VARIABLES AND CONSTANTS
 ROW_LIMIT=3
 COLUMN_LIMIT=3
+SIGN=0
 
 #DECLARE 2-D DICTIONARY
 declare -A board
@@ -21,5 +22,22 @@ function boardReset()
 	done
 }
 
-#FUNCTION CALL
+#LETTER ASSIGN TO THE PLAYER
+function letterAssigned()
+{
+	letterCheck=$(( RANDOM%2 ))
+	if [ $letterCheck -eq $SIGN ]
+	then
+		player=O
+		computer=X
+	else
+		player=X
+		computer=O
+	fi
+	echo $player
+	echo $computer
+}
+
+#FUNCTIONS CALL
 boardReset
+letterAssigned
