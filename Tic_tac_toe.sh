@@ -34,10 +34,23 @@ function letterAssigned()
 		player=X
 		computer=O
 	fi
-	echo $player
-	echo $computer
+	echo "player's letter : $player"
+	echo "computer's letter : $computer"
+}
+
+#TO CHECK WHO PLAY FIRST
+function tossBegin()
+{
+	tossCheck=$(( RANDOM%2 ))
+	if [ $tossCheck -eq $SIGN ]
+	then
+		echo "player wins the toss"
+	else
+		echo "Computer wins the toss"
+	fi
 }
 
 #FUNCTIONS CALL
 boardReset
 letterAssigned
+tossBegin
