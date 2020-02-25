@@ -50,7 +50,23 @@ function tossBegin()
 	fi
 }
 
+#DISPLAY THE BOARD
+function board()
+{
+	echo "Empty board:"
+	for((row=0; row<ROW_LIMIT; row++))
+	do
+		for((column=0; column<COLUMN_LIMIT; column++))
+		do
+			printf "|${board[$row,$column]}"
+		done
+		printf "|"
+		echo
+	done
+}
+
 #FUNCTIONS CALL
 boardReset
 letterAssigned
 tossBegin
+board
