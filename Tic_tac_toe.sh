@@ -110,8 +110,8 @@ function cellChooseByBothPlayers()
 		elif [[ ${board[$(($row+2)),$column]}${board[$(($row+2)),$(($column+1))]}${board[$(($row+2)),$(($column+2))]} == $computer$computer$computer ]]
 		then
 			(( count++ ))
-      	echo "Computer Wins !!!"
-      	break
+			echo "Computer Wins !!!"
+			break
 		elif [[ ${board[$row,$column]}${board[$(($row+1)),$column]}${board[$(($row+2)),$column]} == $player$player$player ]]
 		then
 			(( count++ ))
