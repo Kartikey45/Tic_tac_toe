@@ -9,6 +9,8 @@ SIGN=0
 firstMove=1
 lastMove=9
 count=0
+ROWS=3
+COLUMNS=3
 
 #DECLARE THE DICTIONARY
 declare -A board
@@ -80,91 +82,65 @@ function cellChooseByBothPlayers()
 		board[$row,$column]=$player
 		cellChooseByComputer
 		displayBoard
+		column=0
+		for((row=0; row<$ROWS; row++))
+		do
+			if [[ ${board[$row,$column]}${board[$row,$(($column+1))]}${board[$row,$(($column+2))]} == $player$player$player ]]
+			then
+				echo "Player Wins !!!"
+				(( count++ ))
+				break
+			elif [[ ${board[$row,$column]}${board[$row,$(($column+1))]}${board[$row,$(($column+2))]} == $computer$computer$computer ]]
+			then
+				echo "Computer Wins !!!"
+				(( count++ ))
+				break
+			fi
+		done
+		row=0
+		for((column=0; column<$COLUMNS; column++))
+		do
+			if [[ ${board[$row,$column]}${board[$(($row+1)),$column]}${board[$(($row+2)),$column]} == $player$player$player ]]
+			then
+				echo "Player Wins !!!"
+				(( count++ ))
+				break
+			elif [[ ${board[$row,$column]}${board[$(($row+1)),$column]}${board[$(($row+2)),$column]} == $computer$computer$computer ]]
+			then
+				echo "Computer Wins !!!"
+				(( count++ ))
+				break
+			fi
+		done
 		row=0
 		column=0
-		if [[ ${board[$row,$column]}${board[$row,$(($column+1))]}${board[$row,$(($column+2))]} == $player$player$player ]]
+		if [[ ${board[$row,$column]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+2)),$(($column+2))]} == $player$player$player ]]
 		then
-			(( count++ ))
 			echo "Player Wins !!!"
-			break
-		elif [[ ${board[$row,$column]}${board[$row,$(($column+1))]}${board[$row,$(($column+2))]} == $computer$computer$computer ]]
-		then
 			(( count++ ))
-			echo "Computer Wins !!!"
-			break
-		elif [[ ${board[$(($row+1)),$column]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+1)),$(($column+2))]} == $player$player$player ]]
-		then
-			(( count++ ))
-			echo "Player Wins !!!"
-			break
-		elif [[ ${board[$(($row+1)),$column]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+1)),$(($column+2))]} == $computer$computer$computer ]]
-		then
-			(( count++ ))
-			echo "Computer Wins !!!"
-			break
-		elif [[ ${board[$(($row+2)),$column]}${board[$(($row+2)),$(($column+1))]}${board[$(($row+2)),$(($column+2))]} == $player$player$player ]]
-		then
-			(( count++ ))
-			echo "Player Wins !!!"
-			break
-		elif [[ ${board[$(($row+2)),$column]}${board[$(($row+2)),$(($column+1))]}${board[$(($row+2)),$(($column+2))]} == $computer$computer$computer ]]
-		then
-			(( count++ ))
-			echo "Computer Wins !!!"
-			break
-		elif [[ ${board[$row,$column]}${board[$(($row+1)),$column]}${board[$(($row+2)),$column]} == $player$player$player ]]
-		then
-			(( count++ ))
-			echo "Player Wins !!!"
-			break
-		elif [[ ${board[$row,$column]}${board[$(($row+1)),$column]}${board[$(($row+2)),$column]} == $computer$computer$computer ]]
-		then
-			(( count++ ))
-			echo "Computer Wins !!!"
-			break
-		elif [[ ${board[$row,$(($column+1))]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+2)),$(($column+1))]} == $player$player$player ]]
-		then
-			(( count++ ))
-			echo "Player Wins !!!"
-			break
-		elif [[ ${board[$row,$(($column+1))]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+2)),$(($column+1))]} == $computer$computer$computer ]]
-		then
-			(( count++ ))
-			echo "computer Wins !!!"
-			break
-		elif [[ ${board[$row,$(($column+2))]}${board[$(($row+1)),$(($column+2))]}${board[$(($row+2)),$(($column+2))]} == $player$player$player ]]
-		then
-			(( count++ ))
-			echo "Player Wins !!!"
-			break
-		elif [[ ${board[$row,$(($column+2))]}${board[$(($row+1)),$(($column+2))]}${board[$(($row+2)),$(($column+2))]} == $computer$computer$computer ]]
-		then
-			(( count++ ))
-			echo "Computer Wins !!!"
-			break
-		elif [[ ${board[$row,$column]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+2)),$(($column+2))]} == $player$player$player ]]
-		then
-			(( count++ ))
-			echo "Player Wins !!!"
 			break
 		elif [[ ${board[$row,$column]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+2)),$(($column+2))]} == $computer$computer$computer ]]
 		then
-			(( count++ ))
 			echo "Computer Wins !!!"
+			(( count++ ))
 			break
 		elif [[ ${board[$row,$(($column+2))]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+2)),$column]} == $player$player$player ]]
-		then 
-			(( count++ ))
+		then
 			echo "Player Wins !!!"
+			(( count++ ))
 			break
 		elif [[ ${board[$row,$(($column+2))]}${board[$(($row+1)),$(($column+1))]}${board[$(($row+2)),$column]} == $computer$computer$computer ]]
 		then
-			(( count++ ))
 			echo "Computer Wins !!!"
+			(( count++ ))
+			break
+		fi
+		if [ $count -eq 1 ]
+		then
 			break
 		fi
 	done
-	if [ $count -eq 0 ]
+	if [ $count -ne 1 ]
 	then
 		echo "Tie !!!"
 		break
