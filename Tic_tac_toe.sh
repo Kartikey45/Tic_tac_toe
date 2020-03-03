@@ -8,9 +8,10 @@ COLUMN_LIMIT=3
 SIGN=0
 firstMove=1
 lastMove=9
-count=0
+isEmpty=" "
 ROWS=3
 COLUMNS=3
+count=0
 
 #DECLARE THE DICTIONARY
 declare -A board
@@ -141,10 +142,11 @@ function cellChooseByBothPlayers()
 		fi
 	done
 	if [ $count -ne 1 ]
-	then
-		echo "Tie !!!"
-		break
-	fi
+    then
+       echo "Tie !!!"
+       break
+    fi
+
 }
 
 #COMPUTER CHOOSE THE CELLS TO FILL THE BOARD
@@ -154,31 +156,58 @@ function cellChooseByComputer()
 	random=$(( RANDOM%9+1 ))
 	case $random in 
 		1)
-		board[0,0]=$computer
+		if [[ ${board[0,0]} == $isEmpty ]]
+		then
+			board[0,0]=$computer
+		fi
 		;;
 		2)
-		board[0,1]=$computer
+		if [[ ${board[0,1]} == $isEmpty ]]
+		then
+			board[0,1]=$computer
+		fi
 		;;
 		3)
-		board[0,2]=$computer
+		if [[ ${board[0,2]} == $isEmpty ]]
+		then
+			board[0,2]=$computer
+		fi
 		;;
 		4)
-		board[1,0]=$computer
+		if [[ ${board[1,0]} == $isEmpty ]]
+		then
+			board[1,0]=$computer
+		fi
 		;;
 		5)
-		board[1,1]=$computer
+		if [[ ${board[1,1]} == $isEmpty ]]
+		then
+			board[1,1]=$computer
+		fi
 		;;
 		6)
-		board[1,2]=$computer
+		if [[ ${board[1,2]} == $isEmpty ]]
+		then
+			board[1,2]=$computer
+		fi
 		;;
 		7)
-		board[2,0]=$computer
+		if [[ ${board[2,0]} == $isEmpty ]]
+		then
+			board[2,0]=$computer
+		fi
 		;;
 		8)
-		board[2,1]=$computer
+		if [[ ${board[2,1]} == $isEmpty ]]
+		then
+			board[2,1]=$computer
+		fi
 		;;
 		9)
-		board[2,2]=$computer
+		if [[ ${board[2,2]} == $isEmpty ]]
+		then
+			board[2,2]=$computer
+		fi
 		;;
 		*)
 		echo "invalid"
